@@ -27,7 +27,7 @@ vector<long long> nextLargerElement(vector<long long> arr, int n){
         
         for(int i=0;i<n;i++){
             
-            while(s.size()>0 and s.top()<arr[j]){
+            while(s.size()>0 and s.top()<=arr[j]){
                 s.pop();
             }
             if(s.size()>0 and s.top()>arr[j]){
