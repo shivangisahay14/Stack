@@ -25,3 +25,69 @@ stack<int> s1;
         return s2.top();
     }
 };
+
+
+Using O(1) space:
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    stack<long long int>s;
+     long long int minEle; //supporting stack
+    MinStack() {
+        
+    }
+    
+    void push(int val) {
+        
+        if(s.empty()){
+        s.push(val);
+        minEle=val;
+    }
+    else{
+        if(val>=minEle){
+            s.push(val);
+        }
+        else{
+            s.push((long long)(2*(long long)val) - minEle);
+            minEle=val;
+        }
+    }       
+                
+        
+    }
+    
+    void pop() {
+        
+    if(s.empty())  return ;
+    
+    else{
+    if(s.top()>=minEle){
+        s.pop();
+        
+    }
+    else{
+        minEle=2*minEle-s.top();
+        s.pop();
+        
+    }
+    }
+        
+    }
+    
+    int top() {
+        
+        if(s.empty()) return -1;
+        
+        if(s.top()>=minEle){
+            return s.top();
+        }
+        else{
+            return minEle;
+        }
+    }
+    
+    int getMin() {
+        if(s.empty()) return -1;
+    
+    return minEle;        
+    }  
