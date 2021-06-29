@@ -1,0 +1,116 @@
+bool isValid(string s) {
+        
+       
+        int n=s.size();
+        stack<int>st;
+        int x;
+        
+        for(int i=0;i<n;i++){
+            if(s[i]=='(' or s[i]=='{' or s[i]=='['){
+                st.push(s[i]);
+                continue;
+            }
+            
+            if(st.empty())
+                return false;
+            
+            switch (s[i]) 
+		{ 
+		case ')': 
+
+			// Store the top element in a 
+			x = st.top(); 
+			st.pop(); 
+			if (x=='{' || x=='[') 
+				return false; 
+			break; 
+
+		case '}': 
+
+			// Store the top element in b 
+			x = st.top(); 
+			st.pop(); 
+			if (x=='(' || x=='[') 
+				return false; 
+			break; 
+
+		case ']': 
+
+			// Store the top element in c 
+			x = st.top(); 
+			st.pop(); 
+			if (x =='(' || x == '{') 
+				return false; 
+			break; 
+		} 
+        }
+        
+        return (st.empty());    
+        
+  
+    }
+    
+    
+  bool isValid(string s) {
+        
+        stack <char> stk;
+        map < char, char> match = {
+            { '(' , ')' },
+            { '[' , ']' },
+            { '{' , '}' }
+        };
+        for ( char c : s){
+            if ( c == '(' || c == '[' || c == '{'){
+                stk.push (c);
+            }
+            else if (  stk.size() > 0 && c != '(' && c != '[' && c != '{' ){
+                if ( match [ stk.top( ) ] == c ){
+                    stk.pop ( );
+                }
+                else {
+                    return false;
+                }
+            }
+            else if ( stk.empty() && c != '(' && c != '[' && c != '{' ){
+                return false;
+            }
+        }
+        if (stk.empty() ){
+            return true;
+        }
+        else {
+            return false;
+        }
+        
+       }
+       
+       
+    bool isValid(string s) {
+        
+        unordered_map<char, int> containers = { {'[', - 1} , {'{', -2} , {'(', -3} , {']', 1} , {'}', 2} , {')', 3} };
+    
+    stack<char> st;
+
+    for(auto i : s)
+    {
+    	if(containers[i] < 0)
+    	{
+    		st.push(i);
+    	}
+    	else
+    	{
+    		if(st.empty())
+    			return false;
+
+    		char top = st.top();
+    		st.pop();
+    		if(containers[top] + containers[i] != 0)
+    			return false;
+    	}
+    }
+
+    if(st.empty())
+    	return true;
+    else
+    	return false;
+  }
